@@ -36,7 +36,7 @@ the items that the Abstract Data type corresponds to, and emojis with a cross in
     - ✅ ✅ ✅ ✅ ✅ ✅ ✅
   - FieldPhysicsStrategy - _SAVED_,
     - ✅ ✅ ✅ ✅ ✅ ✅ ✅
-  - TurnsStack - _SAVED_,
+  - TurnsStack - _REJECTED_,
     - ✅ ✅ ✅ ✅ ✅ ✅ ❌
-  - MultiLangDict - _SAVED_,
+  - MultiLangDict - _REJECTED_,
     - ✅ ✅ ✅ ❌ ✅ ❌ ✅
