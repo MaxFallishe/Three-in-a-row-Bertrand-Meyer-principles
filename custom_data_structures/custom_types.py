@@ -1,11 +1,9 @@
-from functools import cache
-
-
 class PositiveInt(int):
     """
     ALWAYS: PositiveInt + PositiveInt = PositiveInt
     ALWAYS: PositiveInt * PositiveInt = PositiveInt
     """
+
     def __new__(cls, value):
         if value < 0:
             raise ValueError("Value must be positive")
@@ -40,11 +38,6 @@ class CharStr(str):
 
     def __init__(self, value):
         super().__init__()
-
-
-@cache
-class TwoDimensialArrayNone:
-    pass
 
 
 posint = PositiveInt

@@ -1,65 +1,25 @@
-# from console_ui import interface
-#
-#
-# def main() -> None:
-#     # инициализации логики/движка
-#
-#     # старт сессии
-#
-#     # инициализация UI интерфейса, рендер
-#     interface.delme()
-#
-# if __name__ == '__main__':
-#     main()
+from console_ui.interface import ConsoleGameUI
+from core.field import BaseRectangleField
+from core.field_observer import GameFieldObserver
+from custom_data_structures.custom_types import posint
+from turn_mechanics.game_engine import GameEngine
+from turn_mechanics.game_session import GameSession
+from turn_mechanics.game_turn import GameTurn
 
 
-import curses
+def main() -> None:
+    # инициализации логики/движка
+    # старт сессии  # TODO refactor
+    game_field = BaseRectangleField(posint(8), posint(8))
+    game_observer = GameFieldObserver(game_field=game_field)
+    my_game_engine = GameEngine(game_session=GameSession(GameTurn()), game_observer=game_observer, game_field=game_field)
+    game_observer.game_engine = my_game_engine  # TODO kinda want to do this withother options
+
+    # инициализация UI интерфейса, рендер
+    game_ui = ConsoleGameUI(game_engine=my_game_engine)
+    game_ui.start()
 
 
-def draw_matrix(stdscr, matrix, command, cursor_visible):
-    stdscr.clear()
-    height, width = stdscr.getmaxyx()
-
-    # Calculate position to center the matrix
-    start_y = (height - 16) // 2
-    start_x = (width - 32) // 2
-
-    # Draw the matrix
-    for y in range(8):
-        for x in range(8):
-            stdscr.addstr(start_y + y * 2, start_x + x * 4, f' {matrix[y][x]} ')
-    # Draw the command line
-    stdscr.addstr(height - 2, 0, "Command: " + command)
-    # Blinking cursor
-    if cursor_visible:
-        stdscr.addstr(height - 2, len("Command: ") + len(command), '_')
-    stdscr.refresh()
-
-
-def main(stdscr):
-    curses.curs_set(0)
-    matrix = [['😎 ' for _ in range(8)] for _ in range(8)]
-    command = ''
-    cursor_visible = True
-    stdscr.timeout(500)  # Set timeout for blinking cursor
-
-    while True:
-        draw_matrix(stdscr, matrix, command, cursor_visible)
-        key = stdscr.getch()
-
-        if key == 10:  # Enter key
-            if command.strip().lower() == 'exit':
-                break
-            command = ''
-        elif key == 127 or key == curses.KEY_BACKSPACE:  # Backspace key
-            command = command[:-1]
-        elif key != -1:  # Any other key
-            command += chr(key)
-
-        # Toggle cursor visibility
-        cursor_visible = not cursor_visible
-
-
-if __name__ == "__main__":
-    curses.wrapper(main)
+if __name__ == '__main__':
+    main()
 
