@@ -49,6 +49,7 @@ class AbstractGameEngine(ABC):
         self.game_observer = game_observer
         self.game_field = game_field
         self.game_physics: GameFieldPhysics
+        self.points: int = 0  # TODO Should be in session
 
     @abstractmethod
     def start_game_session(self):
@@ -72,12 +73,12 @@ class GameEngine(AbstractGameEngine, metaclass=CombinedMeta):
 
 
     def performer_field_line_pattern(self, elements: CovariantTwoDimensialArrayElementType):
-        # Should be done with effect
+        # Should be done with effect ADT
         for i in elements:  # TODO should change type of object, not jut value
             i.value = '*'
-
-        # time.sleep(5)
-
+            self.points += 10
         self.game_physics.apply_physics_to_field()
+
+
 
 

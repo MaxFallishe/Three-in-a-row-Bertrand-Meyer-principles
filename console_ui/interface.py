@@ -30,7 +30,7 @@ class ConsoleGameUI(AbstractGameUI):
         self._stdscr = curses.initscr()
         self.height, self.width = 0, 0
         self.command = ''
-        self._points = '000000'
+        self._points = self.game_engine.points
         self._turn_num = 1
         self._message_bar_text = "Game was started try use `move` command"
         self.cursor_visible = True
@@ -85,6 +85,7 @@ class ConsoleGameUI(AbstractGameUI):
         self._stdscr.addstr(self.height - 2, 0, message_bar_text)
 
     def _draw_game_points(self) -> None:  # TODO Refactor
+        self._points = self.game_engine.points
         points_text = f'Points: {self._points}'
         start_x = self.width - len(points_text) - 1
         self._stdscr.addstr(0, start_x, points_text)
@@ -99,18 +100,23 @@ class ConsoleGameUI(AbstractGameUI):
         if key == 10:
             if self.command.strip().lower() == 'exit':
                 self.is_ui_active = False
+            if self.command.strip().lower() == 'help':
+                self._message_bar_text = "Use `move` command to make your turns `move 5.5 4.5`"
+                self.command = ''
+                return
             if 'move' in self.command.strip().lower():
                 pattern = r"move (\d+)\.(\d+) (\d+)\.(\d+)"
                 match = re.match(pattern, self.command.strip().lower())
                 if not match:
-                    pass
+                    self._message_bar_text = "For make turn with `move` you should use construction like `move 5.5 4.5`"
+                    self.command = ''
+                    return
                 num1 = int(match.group(1))-1
                 num2 = int(match.group(2))
                 num3 = int(match.group(3))-1
                 num4 = int(match.group(4))
 
                 self.game_engine.shard_castling((num1, num2), (num3, num4))
-                # self.matrix = self.game_engine.game_field
 
                 # FIXME add validation
                 self._message_bar_text = "Success move!"
