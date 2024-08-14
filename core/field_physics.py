@@ -13,6 +13,7 @@ logging.basicConfig(
 
 # FIXME .up_element and .down_element are working opposite it name
 # TODO add step-by-step physics for animations
+# TODO Refactor
 class GameFieldPhysics:
     def __init__(self, game_field):
         self.game_field: BaseRectangleField = game_field
@@ -29,18 +30,21 @@ class GameFieldPhysics:
                 if element.value != '*':  # TODO replace with type
                     continue
 
-
                 logging.warning(f'element [{i, j}], {element.value}, UP_EL{element.down_element.value}')
                 try:
                     most_down_hole = self.game_field.field.get(i, j)
                     while True:
 
                         if element.value == '*':
+                            org_element_height_coord = element.height_coord
                             element = element.down_element
+                            logging.warning(f"block xfr {element.value}, {element.height_coord, element.width_coord}")
+                            if element.height_coord - org_element_height_coord> 1:
+                                break
                             continue
 
-                        element.value, most_down_hole.value = most_down_hole.value, element.value  # TODO should be up element fix it
 
+                        element.value, most_down_hole.value = most_down_hole.value, element.value  # TODO should be up element fix it
 
                         if element.height_coord == 0:
                             break

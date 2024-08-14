@@ -19,14 +19,14 @@ class BaseRectangleField:
             for j in range(self.height + 1):
                 posint_i = posint(i)
                 posint_j = posint(j)
-                # random_shard = random.choice(["🌕", "🌏", "🪐", "🌝", "🌞"])  # TODO refactor
-                random_shard = chr(i*77+j*92)
-                if posint_i == 1 and posint_j == 3: random_shard = "🌏"
-                if posint_i == 1 and posint_j == 4: random_shard = "🌏"
-                if posint_i == 1 and posint_j == 5: random_shard = "🌏"
-                if posint_i == 3 and posint_j == 4: random_shard = "🌏"
-                if posint_i == 3 and posint_j == 5: random_shard = "🌏"
-                if posint_i == 3 and posint_j == 6: random_shard = "🌏"
+                random_shard = random.choice(["🌕", "🌏", "🪐", "🌝", "🌞"])  # TODO refactor
+                # random_shard = chr(i*77+j*92)
+                # if posint_i == 1 and posint_j == 3: random_shard = "🌏"
+                # if posint_i == 1 and posint_j == 4: random_shard = "🌏"
+                # if posint_i == 1 and posint_j == 5: random_shard = "🌏"
+                # if posint_i == 3 and posint_j == 4: random_shard = "🌏"
+                # if posint_i == 3 and posint_j == 5: random_shard = "🌏"
+                # if posint_i == 3 and posint_j == 6: random_shard = "🌏"
 
                 element = TwoDimensialArrayElement(self.field, random_shard, posint_j, posint_i)  # TODO refactor - heigh and width is calculated in process of paste
                 self.field.put(posint_j, posint_i, element)
