@@ -31,7 +31,7 @@ width=4
 
 ## Game Screencast
 
-[//]: # (![demo_gameplay_x3spd.gif]&#40;https://file.io/INsLqim107QM&#41;)
+![demo_gameplay_x3spd.gif](imgs/gameplay_screencast1.gif)
 
 ## Game Screenshots
 ![img.png](imgs/img.png)
